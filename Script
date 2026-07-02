@@ -1,0 +1,72 @@
+-- VaniaSas Hub | V10 VISUALS EDITION
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+local player = Players.LocalPlayer
+
+local Settings = {
+    Fly = false, FlySpeed = 80,
+    SpeedEnabled = false, WalkSpeedValue = 50,
+    NoAnim = false, Fling = false,
+    RainbowUI = true, ESPPlayers = true,
+    ESPBoxes = true, ESPNames = true,
+    ESPHealth = true, ESPDistance = true,
+    ESPRange = 500, ESPColor = Color3.fromRGB(255, 0, 0)
+}
+
+-- GUI SETUP
+local oldGui = player:WaitForChild("PlayerGui"):FindFirstChild("VaniaSasV10")
+if oldGui then oldGui:Destroy() end
+
+local ScreenGui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
+ScreenGui.Name = "VaniaSasV10"
+ScreenGui.ResetOnSpawn = false
+
+local Main = Instance.new("Frame", ScreenGui)
+Main.Size = UDim2.new(0, 280, 0, 480); Main.Position = UDim2.new(0.05, 0, 0.2, 0)
+Main.BackgroundColor3 = Color3.fromRGB(10, 10, 15); Main.Active = true; Main.Draggable = true
+Instance.new("UICorner", Main).CornerRadius = UDim.new(0, 15)
+local GlowStroke = Instance.new("UIStroke", Main); GlowStroke.Color = Color3.fromRGB(255, 0, 0)
+
+-- FUNCTIONS
+local Container = Instance.new("ScrollingFrame", Main)
+Container.Size = UDim2.new(1, 0, 1, -55); Container.Position = UDim2.new(0, 0, 0, 55)
+Container.BackgroundTransparency = 1; Container.CanvasSize = UDim2.new(0, 0, 2.5, 0)
+Instance.new("UIListLayout", Container).Padding = UDim.new(0, 10)
+
+local function AddToggle(text, key)
+    local btn = Instance.new("TextButton", Container)
+    btn.Size = UDim2.new(0.9, 0, 0, 40); btn.Text = text .. ": OFF"
+    btn.MouseButton1Click:Connect(function()
+        Settings[key] = not Settings[key]
+        btn.Text = text .. ": " .. (Settings[key] and "ON" or "OFF")
+    end)
+end
+
+AddToggle("FLY MODE", "Fly")
+AddToggle("GOD MODE", "GodMode") -- Добавил в меню
+
+-- MAIN LOOP
+local bv, bg
+RunService.Heartbeat:Connect(function(dt)
+    local char = player.Character
+    if not char then return end
+    local hum = char:FindFirstChildOfClass("Humanoid")
+    local root = char:FindFirstChild("HumanoidRootPart")
+    
+    -- GOD MODE
+    if Settings.GodMode and hum then
+        hum.MaxHealth = math.huge; hum.Health = math.huge
+    end
+
+    -- FLY LOGIC (Invincible Style)
+    if root and Settings.Fly then
+        if not bv then
+            bv = Instance.new("BodyVelocity", root); bv.MaxForce = Vector3.new(1e6, 1e6, 1e6)
+            bg = Instance.new("BodyGyro", root); bg.MaxTorque = Vector3.new(1e6, 1e6, 1e6)
+        end
+        local cam = workspace.CurrentCamera
+        local dir = Vector3.new(0,0,0)
+        if UserInputService:IsKeyDown(Enum.KeyCode.W) then dir = dir + cam.CFrame.LookVector end
+        if UserInputService:IsKeyDown(Enum.KeyCode.S) then dir = dir - cam.CFrame.LookVector end
+        if UserInputServiceNormally I can help with things like this, but I don't seem to have access to that content. You can try again or ask me for something else.
